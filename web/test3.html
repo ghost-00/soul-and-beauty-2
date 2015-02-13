@@ -1,0 +1,373 @@
+ {% set nombre=10 %}
+ {% set valeur=nombre*20 %}
+  {% set valeur2=valeur/100 %}
+ {% set ecart=( (1.9*(valeur/nombre))/100) %}
+ {%set width=(valeur/nombre-ecart)/valeur2%}
+ {% set width2=80/nombre %}
+ 	<link rel='stylesheet' href='web/css/bootstrap.css'>
+    <link rel='stylesheet' href='web/css/index.css'>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+	<script src='web/script/index.js'></script>
+    <script type="text/javascript" src="../web/script/bootstrap.js"></script>
+		
+	
+<style>
+    body
+    {
+        background: #fff;
+    }
+    #sb-slide
+    {
+
+        width: 100%;
+        height: 45vh;
+       padding:2vh 0 2vh 0;
+        overflow: hidden;
+        background: yellow;
+    }
+    #sb-slide-st
+    {
+        width: {{valeur}}vw;
+       /*right:  -40vw;*/
+        position:relative;
+         transition-property: all;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+       background: red;
+    }
+    .sb-slide
+    {
+       /* height: {{ valeur/72 }}vh;     width: {{(valeur/nombre-ecart)/valeur2}}%;*/
+        width: {{width}}%;
+        
+         /*height: {{valeur/5-ecart}}%;*/
+        background-color:transparent;
+        display: inline-block;
+        margin: 0px !important;
+        padding: 0px !important;
+       /*background: blue;*/
+       float: left;
+    }
+    
+    .sb-aide
+    {
+       
+    }
+	.sb-aide a
+    {
+         color : #000;
+	}
+	.sb-aide a p
+    {
+         color : #000;
+		 opacity:.6;
+	}
+	.sb-aide a:hover
+	{
+	}
+	.sb-aide a:hover p
+	{
+		opacity:1;
+	}
+    .sb-groupe
+    {
+       width: 100%;
+      
+    }
+    .sb-g
+    {
+         background-color:transparent;
+         height: 30vh;
+         overflow: hidden;
+         background-size:50%;
+          background-position: center;
+         background-repeat: no-repeat;
+         -webkit-transition: all .3s ease-out; 
+   -moz-transition: all .3s ease-out; 
+   -o-transition: all .3s ease-out; 
+   transition: all .3s ease-out;
+    }
+    .sb-g:hover
+    {
+        -moz-transform: scale(1.3);
+   -webkit-transform: scale(1.3);
+   -o-transform: scale(1.3);
+   transform: scale(1.3);
+   -ms-transform: scale(1.3);
+    }
+    .sb-c
+    {
+        background:transparent;
+         height: 10vh;
+      display: none;
+    }
+    .sb-img
+    {
+     overflow: hidden;
+     height: 30vh;
+     display: none;
+     
+    }
+    .sb-img img
+    {
+     width:  100%
+    }
+    .sb-text
+    {
+		width:10%;
+		padding-top: 5px;
+       	position: absolute; 
+	   	text-align:center;
+               
+    }
+	.sb-text a
+	{
+		text-decoration:underline !important;
+	}
+	.sb-text h8
+    {
+		font-size:36px;
+	}
+	.sb-text h7
+    {
+		font-size:12px;
+                display:block;
+	}
+	.sb-text p
+	{
+		margin-top: -2px;
+    	color: #6d7273;
+		font-size:20px;
+    	font-family:AbadiMT;
+    	font-weight: normal;
+    	text-transform: uppercase;
+	}
+        /*==================fleche============================*/
+
+
+
+
+
+button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline:0;
+ /* background: red;*/
+ 
+}
+
+svg {
+  padding: 5px;
+   color: #000;
+}
+
+.arrow {
+  cursor: pointer;
+  width: 12vh;
+  height: 16vh;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.1;
+  transition: all 500ms ease-in-out;
+}
+.arrow:hover
+{
+    opacity: 1;
+    transition: all 500ms ease-in-out;
+}
+
+.left {
+  left: 0;
+  
+}
+
+.right {
+  right:  0%;
+}
+
+
+
+
+polyline {
+  transition: all 250ms ease-in-out;
+}
+/*===========================cureseur=====================*/
+#curseur
+{
+    width: 80vw;
+    height: 1px;
+    background: #d2d2d3 ;
+    margin: auto;
+    margin-top: 300px;
+}
+#sb-rectangle
+{
+   /* width: {{width2}}vw;*/
+    height: 3px;
+    background:#6d7273;
+    position: relative;
+    margin-top: -1px;
+   float: left;
+    transition-property: all;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+        cursor: pointer;
+}
+/*==========================ddetail produit===========================*/
+#sb-detail
+{
+    height: 50vh;
+    width: 100%;
+    background: red;
+}
+</style>
+<script>
+    $(document).ready(function(event){
+      
+      taille=$('.sb-slide').width();
+       $('#console3').text(taille);
+
+      
+      var p = $( "#curseur" );
+      var position = p.position();
+     // $( "#console1" ).text( "curs left: " + position.left + ", top: " + position.top );
+
+      
+      var p = $( "#sb-rectangle" );
+      var position = p.position();
+      $( "#console2" ).text( "curs left: " + position.left + ", top: " + position.top );
+            depart=position.left;
+         
+            taille2=$('#curseur').width()/{{nombre}};
+            arriver=position.left+{{nombre}}*taille2-2*taille2;
+           $('#sb-rectangle').css('width',$('#curseur').width()/{{nombre}}+'px');
+           $('#console4').text(taille2);
+       vitesse=10;
+       taille3=2*taille;
+      $("#sb-slide-st").animate({ "left": "+="+taille3+"px" }, "slow" );
+     //  $('#curseur').css('width',taille2*{{nombre}}+'px');
+       
+       $( "#console1" ).text(arriver);
+       
+       
+       
+       
+      $('#sb-fleche-d').click(function(){
+      
+      var p = $( "#sb-rectangle" );
+      var position = p.position();
+          $( "#console2" ).text( "left: " + position.left + ", top: " + position.top );
+           if (position.left <= arriver) {
+        
+  $("#sb-rectangle").animate({ "left": "+="+taille2+"px" }, vitesse );     
+$("#sb-slide-st").animate({ "left": "-="+taille+"px" }, vitesse ,function(){
+    
+});
+      }   
+        });
+      
+      
+      
+      
+      $('#sb-fleche-g').click(function(){
+        // alert(depart);
+          var p = $( "#sb-rectangle" );
+      var position = p.position();
+          $( "#console2" ).text( "left: " + position.left + ", top: " + position.top );
+         // alert(depart+ " " + position.left)
+           if (depart < position.left) {
+ $("#sb-rectangle").animate({ "left": "-="+taille2+"px" }, vitesse );          
+$("#sb-slide-st").animate({ "left": "+="+taille+"px" }, vitesse,function(){
+ 
+});
+           }    
+       
+        });
+      
+      
+    /* var cellules = document.querySelectorAll(".sb-slide");
+      tab = new Array();
+      
+for (var i = 0; i < cellules.length; i++) {
+ // Faire quelque chose avec cellules.item(i) ou cellules[i]
+ console.log(cellules[i]);tab[i]=cellules.item(i) ;
+}
+  tab[0].hide();  */
+    
+    $('.sb-g').hover(function(){
+        $('.sb-c').hide();
+        id=$(this).data('number');
+        $('#c'+id).show();
+    });
+    
+    $('.sb-slide').mouseleave(function(){
+        
+        $('.sb-c').hide();
+    });
+    
+    $('.sb-slide').click(function(){
+       $('.sb-aide').show();
+       id=$(this).data('number');
+       $('#a'+id).fadeOut();
+       $('#sb-slide').css('transform',' scale(0.5)');
+    });
+    
+    });
+</script>
+
+<div id='sb-detail'>
+    
+</div>
+<div id='sb-slide'>
+    <button class="arrow left " id='sb-fleche-g'>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60%" height="80%" viewBox="0 0 50 80" xml:space="preserve">
+    <polyline fill="none" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="
+	45.63,75.8 0.375,38.087 45.63,0.375 "/>
+  </svg>  
+</button>
+
+<button class="arrow right " id='sb-fleche-d'>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60%" height="80%" viewBox="0 0 50 80" xml:space="preserve">
+    <polyline fill="none" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="
+	0.375,0.375 45.63,38.087 0.375,75.8 "/>
+  </svg>
+</button>
+    
+   <div id='sb-slide-st'>
+    {% set z=1 %}
+    {% for i in 1..nombre %}
+    {% if z == 9 %}
+    {% set z=1 %}
+    {% else %}
+    {% set  z=z+1 %}
+    {% endif %}
+       <div class='sb-slide' data-number='{{i}}' >       
+       		<div class='sb-aide' id='a{{i}}'>
+                <a href="#">
+                    <div class='sb-groupe sb-g' id='g{{i}}' data-number='{{i}}' style='background-image:url(web/images/shop/makeup/{{z}}.png)'></div>
+                    <div class='sb-groupe sb-c' id='c{{i}}'>
+                          <span class='sb-text'>
+                             <h7>MAKE UP FOR EVER</h7>
+                            <h7>75 &#128;</h7>
+                              <!--<p>QUAE VEHUNT BINA VEL</p>-->
+                          </span>
+                     </div>
+                </a>
+            </div>
+       </div>
+    {% endfor %}
+  
+    </div>
+   <div id='curseur'>
+    <div id='sb-rectangle'></div>
+   </div>
+    
+</div>
+
+
+
+
+
